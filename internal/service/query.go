@@ -36,18 +36,10 @@ func (s *QueryService) InferenceRun(ctx context.Context, id string) (domain.Infe
 		if err != nil {
 			return err
 		}
-		items, err = reader.ListInferenceRunInputs(ctx, inferenceRunInputKey(run))
+		items, err = reader.ListInferenceRunInputs(ctx, id)
 		return err
 	})
 	return run, items, err
-}
-
-func inferenceRunInputKey(run domain.InferenceRun) string {
-	key := run.ID
-	if run.WorkspaceID != "" {
-		key = run.WorkspaceID
-	}
-	return key
 }
 
 func (s *QueryService) InferenceRuns(ctx context.Context, filter repository.InferenceRunFilter) (repository.InferenceRunPage, error) {
